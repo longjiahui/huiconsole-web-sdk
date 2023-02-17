@@ -1,0 +1,46 @@
+{
+  "name": "@anfo/huiconsole-web-sdk",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/huiconsole.cjs",
+  "module": "./dist/huiconsole.js",
+  "exports": {
+    ".": {
+      "import": "./dist/huiconsole.js",
+      "require": "./dist/huiconsole.cjs"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/longjiahui/huiconsole-web-sdk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/longjiahui/huiconsole-web-sdk/issues"
+  },
+  "homepage": "https://github.com/longjiahui/huiconsole-web-sdk#readme",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "rollup": "^3.15.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-gzip": "^3.1.0",
+    "rollup-plugin-polyfill-node": "^0.12.0"
+  },
+  "dependencies": {
+    "nanoid": "^4.0.1"
+  }
+}
