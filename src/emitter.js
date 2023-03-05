@@ -29,6 +29,9 @@ class _Emitter {
             this.callbacks[channel] = []
         }
     }
+    offAll(){
+        this.callbacks = {}
+    }
     off(channel, callback){
         let ind = this.callbacks[channel]?.findIndex?.(f=>f=== callback)
         if(ind > -1){
@@ -44,21 +47,18 @@ class _Emitter {
         this._confirmCMDFunc(channel)
         this.callbacks[channel].push(new Callback(TYPE_ONCE, callback))
     }
-    async emit(channel, ...rest){
+    async emit(...rest){
+        return this.emitAll(...rest).then(data=>data?.[0])
+    }
+    async emitAll(channel, ...rest){
         if(this.callbacks[channel] && this.callbacks[channel].length > 0){
-            let ret
             let callbacks = this.callbacks[channel]
-            callbacks.forEach(callback=>{
-                ret = callback.call(...rest)
-            })
+            let rets = Promise.all(callbacks.map(callback=>{
+                return callback.call(...rest)
+            }))
             // removeAll Once Func
             this.callbacks[channel] = callbacks.filter(c=>c.type !== TYPE_ONCE)
-
-            if(ret instanceof Promise){
-                return await ret
-            }else if(ret){
-                return ret
-            }
+            return rets
         }
     }
 }
